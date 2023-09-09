@@ -21,3 +21,4 @@
 
 ## Installation
 <!-- TODO -->
+<!-- Will probably use this: https://github.com/PhasecoreX/docker-red-discordbot -->
