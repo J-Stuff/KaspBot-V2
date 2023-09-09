@@ -6,7 +6,7 @@ groups = ["default"]
 cross_platform = true
 static_urls = false
 lock_version = "4.3"
-content_hash = "sha256:ad752a4a70a55b97c6a2cda531701e48e14f88a52b96ecdfcd7f555428507d8a"
+content_hash = "sha256:022d8e218192cff93fc896b605b4b69a070ecff17a29a3df7d054fb7d9a4e919"
 
 [[package]]
 name = "aiodns"

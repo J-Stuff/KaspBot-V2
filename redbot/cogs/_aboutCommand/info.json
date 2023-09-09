@@ -1,0 +1,6 @@
+{
+    "author": ["J Stuff"],
+    "description": "This is the info cog, used to display information about the bot. It is mainly used to show licenses and other information.",
+    "install_msg": "[J Stuff] - About Command Cog Installed!",
+    "short": "About Command Cog"
+}
