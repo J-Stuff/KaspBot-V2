@@ -30,4 +30,5 @@ class AboutCommand(commands.Cog):
         embed = discord.Embed(title="KaspBot - Credits", description=f"KaspBot Version {VERSION} - Credits", color=discord.Color.blue())
         embed.add_field(name="Original Red Bot", value="Red Bot is a project by [Cog Creators](https://github.com/Cog-Creators/Red-DiscordBot)", inline=False)
         embed.add_field(name="KaspBot", value="KaspBot is a fork of Red Bot, and is modified by `jstuff`", inline=False)
-        embed.add_field(name="3rd party addons to KaspBot", value="KaspBot uses 3rd party addons to enhance the bot. A list of these addons can be found [HERE](")
+        embed.add_field(name="3rd party addons to KaspBot", value="KaspBot uses 3rd party addons to enhance the bot. A list of these addons can be found [HERE](https://github.com/J-Stuff/KaspBot-V2/blob/main/ADDONS.md)")
+        await i.response.send_message(embed=embed, ephemeral=False)
