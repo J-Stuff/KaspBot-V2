@@ -24,7 +24,6 @@ class AboutCommand(commands.Cog):
         embed.add_field(name="Source Code", value="KaspBot is an open source project. Think you got what it takes to contribute to the project? [Check out it's source code!](https://github.com/J-Stuff/KaspBot-V2)", inline=False)
         await i.response.send_message(embed=embed, ephemeral=False)
 
-
     @app_commands.command(name="credits")
     async def credits_slash(self, i:discord.Interaction):
         embed = discord.Embed(title="KaspBot - Credits", description=f"KaspBot Version {VERSION} - Credits", color=discord.Color.blue())
