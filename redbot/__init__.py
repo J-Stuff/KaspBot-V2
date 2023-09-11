@@ -338,8 +338,8 @@ def _early_init():
     _ensure_no_colorama()
 
 
-# CHANGE PER RELEASE
-_VERSION = "2.0.0.dev1"
+# This is bumped automatically by release workflow (`.github/workflows/scripts/bump_version.py`)
+_VERSION = "3.5.4"
 
 __version__, version_info = VersionInfo._get_version()
 
