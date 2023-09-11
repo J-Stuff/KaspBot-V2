@@ -339,7 +339,7 @@ def _early_init():
 
 
 # CHANGE PER RELEASE
-_VERSION = "2.0.01"
+_VERSION = "2.0.0.dev1"
 
 __version__, version_info = VersionInfo._get_version()
 
