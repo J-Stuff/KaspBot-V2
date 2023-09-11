@@ -1,0 +1,4 @@
+akinator[fast_async]==1.0.3
+speedtest-cli
+unidecode
+rapidfuzz
