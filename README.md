@@ -22,3 +22,9 @@
 ## Installation
 <!-- TODO -->
 <!-- Will probably use this: https://github.com/PhasecoreX/docker-red-discordbot -->
+
+### Docker
+Run the following command in a directory with another directory named `data` inside it:
+```bash
+docker run -v ./data:/data -e TOKEN=bot_token -e PREFIX=. -e CUSTOM_REDBOT_PACKAGE=git+https://github.com/J-Stuff/KaspBot-V2.git phasecorex/red-discordbot
+```

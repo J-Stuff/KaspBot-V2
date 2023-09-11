@@ -338,8 +338,8 @@ def _early_init():
     _ensure_no_colorama()
 
 
-# This is bumped automatically by release workflow (`.github/workflows/scripts/bump_version.py`)
-_VERSION = "2.0.0.alpha1"
+# CHANGE PER RELEASE
+_VERSION = "2.0.01"
 
 __version__, version_info = VersionInfo._get_version()
 
