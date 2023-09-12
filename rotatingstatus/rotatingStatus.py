@@ -40,8 +40,9 @@ class RotatingStatus(commands.Cog):
 
     @tasks.loop(minutes=5)
     async def status_loop(self):
-        logging.info("Changing status")
-        await self.bot.change_presence(activity=random.choice(STATUSES))
+        selectedStatus = random.choice(STATUSES)
+        logging.info(f"Changing status - {selectedStatus}")
+        await self.bot.change_presence(activity=selectedStatus)
 
     @status_loop.before_loop
     async def before_status_loop(self):
