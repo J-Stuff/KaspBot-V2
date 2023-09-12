@@ -1,0 +1,6 @@
+{
+    "author": ["J Stuff"],
+    "description": "This cog randomly changes the bot status every 5 minutes.",
+    "install_msg": "[J Stuff] - Rotating Status Cog Installed!",
+    "short": "Rotating Status Cog"
+}
