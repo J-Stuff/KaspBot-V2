@@ -1,0 +1,13 @@
+# KaspBot V2
+
+## Version
+
+ - Version: 2.0.0
+
+
+## About
+These are the cogs that make KaspBot, KaspBot!
+
+
+## Installation
+These cogs need to be used and downloaded alongside Discord RedBot. You can find the installation instructions for RedBot [here](https://github.com/Cog-Creators/Red-DiscordBot) or the Docker version [here](https://github.com/PhasecoreX/docker-red-discordbot)

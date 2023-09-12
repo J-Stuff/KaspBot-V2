@@ -1,0 +1,15 @@
+[project]
+name = ""
+version = ""
+description = ""
+authors = [
+    {name = "J-Stuff", email = "jstuff@j-stuff.net"},
+]
+dependencies = [
+    "Red-DiscordBot>=3.5.4",
+    "discord-py>=2.3.2",
+]
+requires-python = "==3.8.10"
+readme = "README.md"
+license = {text = "MIT"}
+
