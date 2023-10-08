@@ -21,9 +21,9 @@ class BoopCommand(commands.Cog):
     async def boop(self, i: discord.Interaction, target:discord.Member):
         """Boop someone!"""
         if target == i.user:
-            return await i.response.send_message("You can't hug yourself!", ephemeral=True)
+            return await i.response.send_message("You can't boop yourself!", ephemeral=True)
         if target == self.bot.user:
-            return await i.response.send_message("You can't hug me!", ephemeral=True)
+            return await i.response.send_message("You can't boop me!", ephemeral=True)
         await i.response.defer(ephemeral=False, thinking=True)
         try:
             image = requests.get(random.choice(MEDIA))
