@@ -1,5 +1,6 @@
 from redbot.core import commands, app_commands
 from discord.ext import tasks
+from discord import app_commands as d_app_commands
 import discord, random, logging, requests, io
 
 
@@ -14,9 +15,15 @@ class BoopCommand(commands.Cog):
         self.bot = bot
 
     @app_commands.command(name="boop")
+    @app_commands.checks.cooldown(1, 10, key=lambda i: (i.guild_id, i.user.id))
+    @app_commands.describe(target="The user to hug.")
     @commands.guild_only()
     async def boop(self, i: discord.Interaction, target:discord.Member):
         """Boop someone!"""
+        if target == i.user:
+            return await i.response.send_message("You can't hug yourself!", ephemeral=True)
+        if target == self.bot.user:
+            return await i.response.send_message("You can't hug me!", ephemeral=True)
         await i.response.defer(ephemeral=False, thinking=True)
         try:
             image = requests.get(random.choice(MEDIA))
@@ -34,5 +41,15 @@ class BoopCommand(commands.Cog):
             logging.error("Failed to send image.")
             logging.exception("Exception:")
             return await i.followup.send("Failed to send image. `BOOPSLASH-FAIL-SENDEXCEPTION`", ephemeral=False)
+        
+    
+    @boop.error
+    async def boop_error(self, i: discord.Interaction, error):
+        if isinstance(error, d_app_commands.errors.CommandOnCooldown):
+            await i.response.send_message(f"You're on cooldown! Try again in {round(error.retry_after, 2)} seconds.", ephemeral=True)
+        else:
+            logging.error("Failed to execute command.")
+            logging.exception("Exception:")
+            await i.response.send_message("Failed to execute command. `BOOPSLASH-FAIL-UNKNOWNEXCEPTION`", ephemeral=True)
 
         

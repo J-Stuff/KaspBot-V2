@@ -2,15 +2,15 @@
 
 ## Version
 
- - Version: 2.0.1
+ - Version: 2.0.2
  - Codename: KaspBot Lithium
 
 ## What's new?
 
 Version: 2.0.1
     
-    Added Boop Command
-    Added Hug Command
+    Updated Boop Command
+    Updated Hug Command
     
 
 
