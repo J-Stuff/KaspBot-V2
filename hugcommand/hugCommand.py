@@ -1,6 +1,6 @@
 from redbot.core import commands, app_commands
 from discord.ext import tasks
-import discord, random, logging, requests
+import discord, random, logging, requests, io
 
 
 MEDIA = [ # <!> Make sure the size of a file is no larger than 5MB, As the bot has to upload it. Additionally, the file needs to be loaded as a byte object into memory, so large files will cause memory flooding.
@@ -26,10 +26,19 @@ class HugCommand(commands.Cog):
         """Hug someone!"""
         await i.response.defer(ephemeral=True, thinking=True)
         try:
-            image = requests.get(random.choice(MEDIA)).content
+            image = requests.get(random.choice(MEDIA))
         except:
             logging.error("Failed to fetch image.")
             logging.exception("Exception:")
             return await i.followup.send("Failed to fetch image. `HUGSLASH-FAIL-FETCHEXCEPTION`", ephemeral=False)
-        await i.followup.send(content=f"{i.user.mention} *hugs* {target.mention}", file=discord.File(image, filename="hug.jpg"), ephemeral=False)
+        
+        with io.BytesIO(image.content) as file:
+            file = discord.File(file, 'hug.jpg')
+            
+        try:
+            await i.followup.send(content=f"{i.user.mention} *hugs* {target.mention}", file=file, ephemeral=False)
+        except:
+            logging.error("Failed to send image.")
+            logging.exception("Exception:")
+            return await i.followup.send("Failed to send image. `HUGSLASH-FAIL-SENDEXCEPTION`", ephemeral=False)
         

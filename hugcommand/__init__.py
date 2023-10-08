@@ -1,4 +1,4 @@
-from .boopCommand import HugCommand
+from .hugCommand import HugCommand
 from redbot.core import commands
 
 
