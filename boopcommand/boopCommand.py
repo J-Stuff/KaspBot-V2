@@ -17,7 +17,7 @@ class BoopCommand(commands.Cog):
     @commands.guild_only()
     async def boop(self, i: discord.Interaction, target:discord.Member):
         """Boop someone!"""
-        await i.response.defer(ephemeral=True, thinking=True)
+        await i.response.defer(ephemeral=False, thinking=True)
         try:
             image = requests.get(random.choice(MEDIA))
         except:
