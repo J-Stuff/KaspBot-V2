@@ -1,0 +1,7 @@
+{
+    "author": ["J Stuff"],
+    "requirements": ["requests"],
+    "description": "Allows users to hug each other.",
+    "install_msg": "[J Stuff] - Hug Command Cog Installed!",
+    "short": "Hug Command Cog"
+}

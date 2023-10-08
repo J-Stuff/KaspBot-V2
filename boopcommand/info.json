@@ -1,0 +1,7 @@
+{
+    "author": ["J Stuff"],
+    "requirements": ["requests"],
+    "description": "Allows users to boop each other.",
+    "install_msg": "[J Stuff] - Boop Command Cog Installed!",
+    "short": "Boop Command Cog"
+}
