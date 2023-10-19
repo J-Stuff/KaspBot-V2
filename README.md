@@ -2,15 +2,15 @@
 
 ## Version
 
- - Version: 2.0.2
+ - Version: 2.0.3
  - Codename: KaspBot Lithium
 
 ## What's new?
 
-Version: 2.0.1
+Version: 2.0.3
     
-    Updated Boop Command
-    Updated Hug Command
+    Updated Boop Command - Higher RL (300 sec)
+    Updated Hug Command - Higher RL (300 sec)
     
 
 

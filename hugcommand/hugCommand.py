@@ -1,6 +1,4 @@
 from redbot.core import commands, app_commands
-from discord.ext import tasks
-from discord import app_commands as d_app_commands
 import discord, random, logging, requests, io
 
 
@@ -22,7 +20,7 @@ class HugCommand(commands.Cog):
         self.bot = bot
 
     @app_commands.command(name="hug")
-    @app_commands.checks.cooldown(1, 10, key=lambda i: (i.guild_id, i.user.id))
+    @app_commands.checks.cooldown(1, 120, key=lambda i: (i.guild_id, i.user.id))
     @app_commands.describe(target="The user to hug.")
     @commands.guild_only()
     async def hug(self, i: discord.Interaction, target:discord.Member):
@@ -31,31 +29,19 @@ class HugCommand(commands.Cog):
             return await i.response.send_message("You can't hug yourself!", ephemeral=True)
         if target == self.bot.user:
             return await i.response.send_message("You can't hug me!", ephemeral=True)
-        await i.response.defer(ephemeral=False, thinking=True)
         try:
             image = requests.get(random.choice(MEDIA))
         except:
             logging.error("Failed to fetch image.")
             logging.exception("Exception:")
-            return await i.followup.send("Failed to fetch image. `HUGSLASH-FAIL-FETCHEXCEPTION`", ephemeral=False)
+            return await i.response.send_message("Failed to fetch image. `HUGSLASH-FAIL-FETCHEXCEPTION`", ephemeral=False)
         
         with io.BytesIO(image.content) as file:
             file = discord.File(file, 'hug.jpg')
             
         try:
-            await i.followup.send(content=f"{i.user.mention} *hugs* {target.mention}", file=file, ephemeral=False)
+            await i.response.send_message(content=f"{i.user.mention} *hugs* {target.mention}", file=file, ephemeral=False)
         except:
             logging.error("Failed to send image.")
             logging.exception("Exception:")
-            return await i.followup.send("Failed to send image. `HUGSLASH-FAIL-SENDEXCEPTION`", ephemeral=False)
-        
-
-    @hug.error
-    async def hug_error(self, i: discord.Interaction, error):
-        if isinstance(error, d_app_commands.errors.CommandOnCooldown):
-            await i.response.send_message(f"You're on cooldown! Try again in {round(error.retry_after, 2)} seconds.", ephemeral=True)
-        else:
-            logging.error("Failed to execute command.")
-            logging.exception("Exception:")
-            await i.response.send_message("Failed to execute command. `HUGSLASH-FAIL-UNKNOWNEXCEPTION`", ephemeral=True)
-        
+            return await i.response.send_message("Failed to send image. `HUGSLASH-FAIL-SENDEXCEPTION`", ephemeral=False)
