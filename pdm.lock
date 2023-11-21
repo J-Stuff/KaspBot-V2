@@ -6,7 +6,7 @@ groups = ["default"]
 cross_platform = true
 static_urls = false
 lock_version = "4.3"
-content_hash = "sha256:0b7029b1775747d66cb51e2756055c9620e7b501883a6fd8058ec4fe30fe242c"
+content_hash = "sha256:97dcbefb3759a8ba8ca7630d7893a69e30f37a6cc74a18c055f939bfbc11f677"
 
 [[package]]
 name = "aiodns"
@@ -670,6 +670,15 @@ summary = "Python 2 and 3 compatibility utilities"
 files = [
     {file = "six-1.16.0-py2.py3-none-any.whl", hash = "sha256:8abb2f1d86890a2dfb989f9a77cfcfd3e47c2a354b01111771326f8aa26e0254"},
     {file = "six-1.16.0.tar.gz", hash = "sha256:1e61c37477a1626458e36f7b1d82aa5c9b094fa4802892072e49de9c60c4c926"},
+]
+
+[[package]]
+name = "speedtest-cli"
+version = "2.1.3"
+summary = "Command line interface for testing internet bandwidth using speedtest.net"
+files = [
+    {file = "speedtest-cli-2.1.3.tar.gz", hash = "sha256:5e2773233cedb5fa3d8120eb7f97bcc4974b5221b254d33ff16e2f1d413d90f0"},
+    {file = "speedtest_cli-2.1.3-py2.py3-none-any.whl", hash = "sha256:75ff32c91af9ac1ce2b905476d6e92bd9eb2c0783f9e7d1939d74605c7d0b9ea"},
 ]
 
 [[package]]
