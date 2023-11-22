@@ -88,7 +88,7 @@ class AttachmentLogging(commands.Cog):
                 errorEmbed.set_author(name=message.author, icon_url=message.author.display_avatar.url)
                 errorEmbed.set_footer(text=f"User ID: {message.author.id}")
                 errorEmbed.timestamp = message.created_at
-                errorEmbed.add_field(name="Message Content", value="`NSFW CHANNEL, CONTENT HIDDEN`", inline=False)
+                errorEmbed.add_field(name="Message Content", value="`HIDDEN`", inline=False)
                 errorEmbed.add_field(name="Message URL", value=f"[Click Here]({message.jump_url})", inline=False)
                 errorEmbed.add_field(name="Error", value=f"Attachment [||{attachment.filename}||] was not reuploaded because the channel is NSFW", inline=False)
                 await logChannel.send(embed=errorEmbed)
