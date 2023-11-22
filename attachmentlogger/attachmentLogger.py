@@ -82,6 +82,7 @@ class AttachmentLogging(commands.Cog):
                 errorEmbed.add_field(name="Message Content", value=message.content, inline=False)
                 errorEmbed.add_field(name="Message URL", value=f"[Click Here]({message.jump_url})", inline=False)
                 errorEmbed.add_field(name="Error", value=f"Attachment {attachment.filename} was not reuploaded because it was too large", inline=False)
+                await logChannel.send(embed=errorEmbed)
             elif self.checkIfAttachmentCanBeReuploaded(attachment, message.guild) and isNSFW:
                 errorEmbed = discord.Embed(title="Attachment(s) Uploaded", description=f"**{len(attachments)}** attachment(s) uploaded in {channel.mention}", color=discord.Color.from_rgb(255,255,255)) #type:ignore
                 errorEmbed.set_author(name=message.author, icon_url=message.author.display_avatar.url)
@@ -89,6 +90,7 @@ class AttachmentLogging(commands.Cog):
                 errorEmbed.timestamp = message.created_at
                 errorEmbed.add_field(name="Message Content", value="`NSFW CHANNEL, CONTENT HIDDEN`", inline=False)
                 errorEmbed.add_field(name="Message URL", value=f"[Click Here]({message.jump_url})", inline=False)
-                errorEmbed.add_field(name="Error", value=f"Attachment ||{attachment.filename}|| was not reuploaded because the channel is NSFW", inline=False)
+                errorEmbed.add_field(name="Error", value=f"Attachment [||{attachment.filename}||] was not reuploaded because the channel is NSFW", inline=False)
+                await logChannel.send(embed=errorEmbed)
             else:
                 pass
