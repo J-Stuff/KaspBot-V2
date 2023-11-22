@@ -1,0 +1,6 @@
+{
+    "author": ["J Stuff"],
+    "description": "Used to log messages containing attachments for moderation purposes",
+    "install_msg": "[J Stuff] - Attachment Logging Cog Installed!",
+    "short": "AttachmentLogging Cog"
+}
