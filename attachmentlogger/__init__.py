@@ -1,6 +1,6 @@
-from .attachmentLogger import *
-from redbot.core import commands
+from .attachmentLogger import AttachmentLogging
+from redbot.core.bot import Red as Bot
 
 
-async def setup(bot: commands.Bot):
-    pass
+async def setup(bot:Bot):
+    await bot.add_cog(AttachmentLogging(bot))
