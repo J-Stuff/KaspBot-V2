@@ -20,7 +20,7 @@ class HugCommand(commands.Cog):
         self.bot = bot
 
     @app_commands.command(name="hug")
-    @app_commands.checks.cooldown(1, 120, key=lambda i: (i.guild_id, i.user.id))
+    @app_commands.checks.cooldown(1, 30, key=lambda i: (i.guild_id, i.user.id))
     @app_commands.describe(target="The user to hug.")
     @commands.guild_only()
     async def hug(self, i: discord.Interaction, target:discord.Member):

@@ -13,7 +13,7 @@ class BoopCommand(commands.Cog):
         self.bot = bot
 
     @app_commands.command(name="boop")
-    @app_commands.checks.cooldown(1, 300, key=lambda i: (i.guild_id, i.user.id))
+    @app_commands.checks.cooldown(1, 30, key=lambda i: (i.guild_id, i.user.id))
     @app_commands.describe(target="The user to hug.")
     @commands.guild_only()
     async def boop(self, i: discord.Interaction, target:discord.Member):
