@@ -17,9 +17,9 @@ class Gate(commands.Cog):
     
 
     class Button(discord.ui.View):
-        def __init__(self, bot:commands.Bot):
+        def __init__(self, bot:commands.Bot, config:Config):
             self.bot = bot
-            self.config = Config.get_conf(self, identifier=984984)
+            self.config = config
             super().__init__(timeout=None)
 
         async def is_allowed_nsfw(self, i:discord.Interaction) -> bool:
@@ -104,6 +104,6 @@ class Gate(commands.Cog):
                                                             Use this button to toggle access to the NSFW channels in this server. Please note that ***YOU MUST BE OVER 18 TO VIEW THESE CHANNELS AND PRESS THIS BUTTON.*** Anyone found to be accessing them while under the age specified will face the possibility of being banned from this server. To gain access to the degenerate channels you must open a ticket in <#1151727115553738792> and ask a moderator.
                                                             """, color=discord.Color.red())
         
-        await ctx.send(embed=embed, view=self.Button(self.bot))
+        await ctx.send(embed=embed, view=self.Button(self.bot, self.config))
         await ctx.message.delete()
         
