@@ -26,9 +26,12 @@ class Gate(commands.Cog):
 
         async def is_allowed_nsfw(self, i:discord.Interaction) -> bool:
             now = datetime.now(timezone.utc)
-            if now - i.user.created_at < timedelta(days=await self.config.guild(i.guild).min_account_age()):
+            min_age = await self.config.guild(i.guild).min_account_age()
+            min_join = await self.config.guild(i.guild).min_account_join()
+            
+            if now - i.user.created_at < timedelta(days=int(min_age)):
                 return False
-            elif now - i.user.joined_at < timedelta(days=await self.config.guild(i.guild).min_account_join()):
+            elif now - i.user.joined_at < timedelta(days=int(min_join)):
                 return False
             else:
                 return True
@@ -39,7 +42,8 @@ class Gate(commands.Cog):
             nsfw_role_id = await self.config.guild(guild).nsfw_role()
             if not type(guild) == discord.Guild: return
             nsfw_role = guild.get_role(nsfw_role_id) # No Need for a check because the role needs to be configured before the button is sent
-            if not nsfw_role: await interaction.response.send_message("The NSFW Role is not set up correctly. Please contact the server owner.", ephemeral=True)
+            if not nsfw_role: 
+                await interaction.response.send_message("The NSFW Role is not set up correctly. Please contact the server owner.", ephemeral=True)
             if nsfw_role in interaction.user.roles:
                 await interaction.user.remove_roles(nsfw_role)
                 await interaction.response.send_message("You no longer have access to NSFW channels.", ephemeral=True)
