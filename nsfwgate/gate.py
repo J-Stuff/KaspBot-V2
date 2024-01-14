@@ -10,7 +10,7 @@ class Gate(commands.Cog):
             "nsfw_role": None
         }
         self.config.register_guild(**default_guild)
-        self.bot.add_view(self.Button(self.bot))
+        self.bot.add_view(self.Button(self.bot, self.config))
         super().__init__()
 
     
