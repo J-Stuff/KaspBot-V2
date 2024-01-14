@@ -1,13 +1,12 @@
-from typing import Optional
 from redbot.core import commands, Config
 import discord, datetime
+from datetime import timezone
 
 class Gate(commands.Cog):
     def __init__(self, bot:commands.Bot):
         self.bot = bot
         self.config = Config.get_conf(self, identifier=984984)
         default_guild = {
-            "nsfw_channel": None,
             "nsfw_role": None,
             "min_account_age": 30,
             "min_account_join": 1
@@ -26,17 +25,18 @@ class Gate(commands.Cog):
             super().__init__(timeout=None)
 
         async def is_allowed_nsfw(self, i:discord.Interaction) -> bool:
-            if datetime.datetime.now() - i.user.created_at < datetime.timedelta(days=await self.config.guild(i.guild).min_account_age()):
+            now = datetime.datetime.now(timezone.utc)
+            if now - i.user.created_at < datetime.timedelta(days=await self.config.guild(i.guild).min_account_age()):
                 return False
-            elif datetime.datetime.now() - i.user.joined_at < datetime.timedelta(days=await self.config.guild(i.guild).min_account_join()):
+            elif now - i.user.joined_at < datetime.timedelta(days=await self.config.guild(i.guild).min_account_join()):
                 return False
             else:
                 return True
 
-        @discord.ui.button(label="Toggle Access", style=discord.ButtonStyle.blurple, custom_id="nsfw_button", emoji="🔞")
+        @discord.ui.button(label="Toggle Access", style=discord.ButtonStyle.red, custom_id="nsfw_button", emoji="🔞")
         async def toggle_access(self, interaction:discord.Interaction, button:discord.ui.Button):
             guild = interaction.guild
-            nsfw_role_id = await self.config.guild(interaction.guild).nsfw_role()
+            nsfw_role_id = await self.config.guild(guild).nsfw_role()
             if not type(guild) == discord.Guild: return
             nsfw_role = guild.get_role(nsfw_role_id) # No Need for a check because the role needs to be configured before the button is sent
             if not nsfw_role: await interaction.response.send_message("The NSFW Role is not set up correctly. Please contact the server owner.", ephemeral=True)
@@ -114,14 +114,13 @@ class Gate(commands.Cog):
     async def setup(self, ctx:commands.Context) -> None:
         """Setup the NSFW Gate."""
         if not ctx.guild: return
-        nsfw_channel_id = await self.config.guild(ctx.guild).nsfw_channel()
         nsfw_role_id = await self.config.guild(ctx.guild).nsfw_role()
-        if not nsfw_channel_id or not nsfw_role_id:
-            await ctx.reply("You must set the NSFW Channel and Role before you can use this command.")
+        if not nsfw_role_id:
+            await ctx.reply("You must set the NSFW Role before you can use this command.")
             return
-        nsfw_channel = ctx.guild.get_channel(nsfw_channel_id)
+
         nsfw_role = ctx.guild.get_role(nsfw_role_id)
-        if not nsfw_channel or not nsfw_role:
+        if not nsfw_role:
             await ctx.reply("The NSFW Channel or Role is not set up!.")
             return
         
