@@ -34,7 +34,7 @@ class Gate(commands.Cog):
                 return True
 
         @discord.ui.button(label="Toggle Access", style=discord.ButtonStyle.blurple, custom_id="nsfw_button", emoji="🔞")
-        async def toggle_access(self, button:discord.ui.Button, interaction:discord.Interaction):
+        async def toggle_access(self, interaction:discord.Interaction, button:discord.ui.Button):
             await interaction.response.defer(ephemeral=True, thinking=True)
             guild = interaction.guild
             nsfw_role_id = await self.config.guild(interaction.guild).nsfw_role()
