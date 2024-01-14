@@ -7,7 +7,9 @@ class Gate(commands.Cog):
         self.bot = bot
         self.config = Config.get_conf(self, identifier=984984)
         default_guild = {
-            "nsfw_role": None
+            "nsfw_role": None,
+            "min_account_age": 7,
+            "min_account_join": 1,
         }
         self.config.register_guild(**default_guild)
         self.bot.add_view(self.Button(self.bot, self.config))
@@ -24,8 +26,8 @@ class Gate(commands.Cog):
 
         async def is_allowed_nsfw(self, i:discord.Interaction) -> bool:
             now = datetime.now(timezone.utc)
-            min_age = 7 # Days
-            min_join = 1 # Days
+            min_age = self.config.guild(i.guild).min_account_age()
+            min_join = self.config.guild(i.guild).min_account_join()
 
             if now - i.user.created_at < timedelta(days=int(min_age)):
                 return False
@@ -70,6 +72,7 @@ class Gate(commands.Cog):
         min_account_age = await self.config.guild(ctx.guild).min_account_age()
         min_account_join = await self.config.guild(ctx.guild).min_account_join()
         embed = discord.Embed(title="NSFW Gate Settings", color=discord.Color.blurple())
+       
         if nsfw_role_id:
             embed.add_field(name="NSFW Role", value=f"<@&{nsfw_role_id}>")
         else:
@@ -79,6 +82,20 @@ class Gate(commands.Cog):
         embed.add_field(name="Minimum Account Join", value=f"{min_account_join} Days")
         embed.set_footer(text="Self-destructs in 20 seconds.")
         await ctx.reply(embed=embed, delete_after=20)
+
+    @nsfwgate.command()
+    async def setminage(self, ctx:commands.Context, age:int) -> None:
+        """Set the minimum account age to access NSFW channels."""
+        if not ctx.guild: return
+        await self.config.guild(ctx.guild).min_account_age.set(age)
+        await ctx.reply(f"Set the minimum account age to {age} days.")
+
+    @nsfwgate.command()
+    async def setminjoin(self, ctx:commands.Context, age:int) -> None:
+        """Set the minimum account join to access NSFW channels."""
+        if not ctx.guild: return
+        await self.config.guild(ctx.guild).min_account_join.set(age)
+        await ctx.reply(f"Set the minimum account join to {age} days.")
 
     @nsfwgate.command()
     async def setrole(self, ctx:commands.Context, role:discord.Role) -> None:
