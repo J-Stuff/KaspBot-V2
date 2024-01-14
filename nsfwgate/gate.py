@@ -26,8 +26,8 @@ class Gate(commands.Cog):
 
         async def is_allowed_nsfw(self, i:discord.Interaction) -> bool:
             now = datetime.now(timezone.utc)
-            min_age = self.config.guild(i.guild).min_account_age()
-            min_join = self.config.guild(i.guild).min_account_join()
+            min_age = await self.config.guild(i.guild).min_account_age()
+            min_join = await self.config.guild(i.guild).min_account_join()
 
             if now - i.user.created_at < timedelta(days=int(min_age)):
                 return False
@@ -67,7 +67,6 @@ class Gate(commands.Cog):
     async def settings(self, ctx:commands.Context) -> None:
         """Display current settings."""
         if not ctx.guild: return
-        nsfw_channel_id = await self.config.guild(ctx.guild).nsfw_channel()
         nsfw_role_id = await self.config.guild(ctx.guild).nsfw_role()
         min_account_age = await self.config.guild(ctx.guild).min_account_age()
         min_account_join = await self.config.guild(ctx.guild).min_account_join()
