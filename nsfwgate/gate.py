@@ -43,7 +43,7 @@ class Gate(commands.Cog):
             if not nsfw_role: 
                 await interaction.response.send_message("The NSFW Role is not set up correctly. Please contact the server owner.", ephemeral=True)
                 return
-            if nsfw_role_id in interaction.user.roles:
+            if [role for role in interaction.user.roles if role.id == nsfw_role_id]:
                 await interaction.user.remove_roles(nsfw_role)
                 await interaction.response.send_message("You no longer have access to NSFW channels.", ephemeral=True)
             else:
