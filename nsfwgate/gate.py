@@ -37,12 +37,12 @@ class Gate(commands.Cog):
         @discord.ui.button(label="Toggle Access", style=discord.ButtonStyle.red, custom_id="nsfw_button", emoji="🔞")
         async def toggle_access(self, interaction:discord.Interaction, button:discord.ui.Button):
             guild = interaction.guild
-            nsfw_role_id = await self.config.guild(guild).nsfw_role()
+            nsfw_role = await self.config.guild(guild).nsfw_role()
             if not type(guild) == discord.Guild: return
-            nsfw_role = guild.get_role(nsfw_role_id) # No Need for a check because the role needs to be configured before the button is sent
             if not nsfw_role: 
                 await interaction.response.send_message("The NSFW Role is not set up correctly. Please contact the server owner.", ephemeral=True)
-            if nsfw_role in interaction.user.roles:
+                return
+            if [role for role in guild.roles if role.id == nsfw_role]:
                 await interaction.user.remove_roles(nsfw_role)
                 await interaction.response.send_message("You no longer have access to NSFW channels.", ephemeral=True)
             else:
@@ -69,11 +69,6 @@ class Gate(commands.Cog):
         min_account_age = await self.config.guild(ctx.guild).min_account_age()
         min_account_join = await self.config.guild(ctx.guild).min_account_join()
         embed = discord.Embed(title="NSFW Gate Settings", color=discord.Color.blurple())
-        if nsfw_channel_id:
-            embed.add_field(name="NSFW Channel", value=f"<#{nsfw_channel_id}>")
-        else:
-            embed.add_field(name="NSFW Channel", value="Not Set")
-
         if nsfw_role_id:
             embed.add_field(name="NSFW Role", value=f"<@&{nsfw_role_id}>")
         else:
