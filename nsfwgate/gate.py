@@ -1,6 +1,6 @@
 from redbot.core import commands, Config
-import discord, datetime
-from datetime import timezone
+import discord
+from datetime import datetime, timezone, timedelta
 
 class Gate(commands.Cog):
     def __init__(self, bot:commands.Bot):
@@ -25,10 +25,10 @@ class Gate(commands.Cog):
             super().__init__(timeout=None)
 
         async def is_allowed_nsfw(self, i:discord.Interaction) -> bool:
-            now = datetime.datetime.now(timezone.utc)
-            if now - i.user.created_at < datetime.timedelta(days=await self.config.guild(i.guild).min_account_age()):
+            now = datetime.now(timezone.utc)
+            if now - i.user.created_at < timedelta(days=await self.config.guild(i.guild).min_account_age()):
                 return False
-            elif now - i.user.joined_at < datetime.timedelta(days=await self.config.guild(i.guild).min_account_join()):
+            elif now - i.user.joined_at < timedelta(days=await self.config.guild(i.guild).min_account_join()):
                 return False
             else:
                 return True
