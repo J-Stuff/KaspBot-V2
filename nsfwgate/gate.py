@@ -7,9 +7,7 @@ class Gate(commands.Cog):
         self.bot = bot
         self.config = Config.get_conf(self, identifier=984984)
         default_guild = {
-            "nsfw_role": None,
-            "min_account_age": 30,
-            "min_account_join": 1
+            "nsfw_role": None
         }
         self.config.register_guild(**default_guild)
         self.bot.add_view(self.Button(self.bot))
@@ -26,9 +24,9 @@ class Gate(commands.Cog):
 
         async def is_allowed_nsfw(self, i:discord.Interaction) -> bool:
             now = datetime.now(timezone.utc)
-            min_age = await self.config.guild(i.guild).min_account_age()
-            min_join = await self.config.guild(i.guild).min_account_join()
-            
+            min_age = 7 # Days
+            min_join = 1 # Days
+
             if now - i.user.created_at < timedelta(days=int(min_age)):
                 return False
             elif now - i.user.joined_at < timedelta(days=int(min_join)):
@@ -87,32 +85,11 @@ class Gate(commands.Cog):
         await ctx.reply(embed=embed, delete_after=20)
 
     @nsfwgate.command()
-    async def setchannel(self, ctx:commands.Context, channel:discord.TextChannel) -> None:
-        """Set the NSFW Channel."""
-        if not ctx.guild: return
-        await self.config.guild(ctx.guild).nsfw_channel.set(channel.id)
-        await ctx.reply(f"Set the NSFW Channel to {channel.mention}.")
-
-    @nsfwgate.command()
     async def setrole(self, ctx:commands.Context, role:discord.Role) -> None:
         """Set the NSFW Role."""
         if not ctx.guild: return
         await self.config.guild(ctx.guild).nsfw_role.set(role.id)
         await ctx.reply(f"Set the NSFW Role to {role.mention}.")
-
-    @nsfwgate.command()
-    async def setminage(self, ctx:commands.Context, days:int) -> None:
-        """Set the minimum account age."""
-        if not ctx.guild: return
-        await self.config.guild(ctx.guild).min_account_age.set(days)
-        await ctx.reply(f"Set the minimum account age to {days} days.")
-
-    @nsfwgate.command()
-    async def setminjoin(self, ctx:commands.Context, days:int) -> None:
-        """Set the minimum account join."""
-        if not ctx.guild: return
-        await self.config.guild(ctx.guild).min_account_join.set(days)
-        await ctx.reply(f"Set the minimum account join to {days} days.")
 
     @nsfwgate.command()
     async def setup(self, ctx:commands.Context) -> None:
