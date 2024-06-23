@@ -3,9 +3,9 @@ import discord, random, logging, requests, io
 
 
 MEDIA = [ # <!> Make sure the size of a file is no larger than 5MB, As the bot has to upload it. Additionally, the file needs to be loaded as a byte object into memory, so large files will cause memory flooding.
-    "https://cdn.discordapp.com/attachments/1077805633249742879/1077805682931281941/IMG_9773.gif",
-    "https://cdn.discordapp.com/attachments/1077805633249742879/1077805699242934364/IMG_9772.gif",
-    "https://cdn.discordapp.com/attachments/1077805633249742879/1077806051296030720/image0.gif"
+    "https://cdn.j-stuff.net/kaspbot/boop_command/1.gif",
+    "https://cdn.j-stuff.net/kaspbot/boop_command/2.gif",
+    "https://cdn.j-stuff.net/kaspbot/boop_command/3.gif",
 ]
 
 class BoopCommand(commands.Cog):
@@ -24,6 +24,7 @@ class BoopCommand(commands.Cog):
             return await i.response.send_message("You can't boop me!", ephemeral=True)
         try:
             image = requests.get(random.choice(MEDIA))
+            image.raise_for_status()
         except:
             logging.error("Failed to fetch image.")
             logging.exception("Exception:")

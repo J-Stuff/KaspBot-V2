@@ -3,16 +3,7 @@ import discord, random, logging, requests, io
 
 
 MEDIA = [ # <!> Make sure the size of a file is no larger than 5MB, As the bot has to upload it. Additionally, the file needs to be loaded as a byte object into memory, so large files will cause memory flooding.
-    "https://cdn.discordapp.com/attachments/1077805633249742879/1077841663394861126/db426e94329aa0abda9ab24fec33c7b2.jpg",
-    "https://cdn.discordapp.com/attachments/1077805633249742879/1077841663680057354/images.jpg?",
-    "https://cdn.discordapp.com/attachments/1077805633249742879/1077841663898165330/n6ccaoxhebh91.jpg",
-    "https://cdn.discordapp.com/attachments/1077805633249742879/1077841664166613032/qg5y0uyo2wr91.png",
-    "https://cdn.discordapp.com/attachments/1077805633249742879/1077841664464392302/qjmvb0b22yl81.jpg",
-    "https://cdn.discordapp.com/attachments/1077805633249742879/1077841664749608971/Screenshot_2023-01-23_131627.png",
-    "https://cdn.discordapp.com/attachments/1077805633249742879/1077841665009668106/Screenshot_20221128_213135.png",
-    "https://cdn.discordapp.com/attachments/1077805633249742879/1077841665273897010/Screenshot_20221208_133404.png",
-    "https://cdn.discordapp.com/attachments/1077805633249742879/1077841665643008010/Screenshot_20221208_133414.png",
-    "https://cdn.discordapp.com/attachments/1077805633249742879/1077841665961758800/Screenshot_20221211_113729.png"
+    "https://cdn.j-stuff.net/kaspbot/hug_command/1.jpg",
 ]
 
 class HugCommand(commands.Cog):
@@ -31,6 +22,7 @@ class HugCommand(commands.Cog):
             return await i.response.send_message("You can't hug me!", ephemeral=True)
         try:
             image = requests.get(random.choice(MEDIA))
+            image.raise_for_status()
         except:
             logging.error("Failed to fetch image.")
             logging.exception("Exception:")
