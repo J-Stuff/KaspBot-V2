@@ -14,7 +14,7 @@
 
 <h2> Donators </h2>
 
-![Monthly Goal]("https://progress-bar.dev/0/?scale=10&title=Monthly%20Goal&width=120&color=babaca&suffix=$%20/%2010$")
+![Monthly Goal](https://progress-bar.dev/0/?scale=10&title=Monthly%20Goal&width=120&color=babaca&suffix=$%20/%2010$)
 
 | Name | Total Contribution (USD)| Rank |
 | --- | --- | --- |
