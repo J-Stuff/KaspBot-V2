@@ -3,9 +3,8 @@
 
 [metadata]
 groups = ["default"]
-cross_platform = true
-static_urls = false
-lock_version = "4.3"
+strategy = ["cross_platform"]
+lock_version = "4.4.1"
 content_hash = "sha256:97dcbefb3759a8ba8ca7630d7893a69e30f37a6cc74a18c055f939bfbc11f677"
 
 [[package]]
@@ -570,7 +569,7 @@ dependencies = [
     "colorama==0.4.6; sys_platform == \"win32\"",
     "contextlib2==21.6.0",
     "discord-py==2.3.2",
-    "distro==1.8.0; sys_platform == \"linux\" and sys_platform == \"linux\"",
+    "distro==1.8.0; sys_platform == \"linux\"",
     "frozenlist==1.4.0",
     "idna==3.4",
     "importlib-metadata==6.8.0",
@@ -595,7 +594,7 @@ dependencies = [
     "schema==0.7.5",
     "six==1.16.0",
     "typing-extensions==4.7.1",
-    "uvloop==0.17.0; (sys_platform != \"win32\" and platform_python_implementation == \"CPython\") and sys_platform != \"win32\"",
+    "uvloop==0.17.0; sys_platform != \"win32\" and platform_python_implementation == \"CPython\"",
     "yarl==1.9.2",
     "zipp==3.16.2",
 ]
